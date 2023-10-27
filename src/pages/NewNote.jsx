@@ -1,14 +1,17 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../assets/css/NewNote.css';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const NewNote = () => {
+    const newNote = useRef(true);
 
     const [ title, setTitle ] = useState("");
     const [ note, setNote ] = useState("");
     const [ pinned, setPinned ] = useState(false);
 
     const navigate = useNavigate();
+
+    const location = useLocation();
 
     const handleChangeTitle = (e) => {
         setTitle(e.target.value)
@@ -19,6 +22,7 @@ const NewNote = () => {
     };
 
     const handleSetPin = () => {
+
         setPinned(!pinned);
     };
 
@@ -41,10 +45,51 @@ const NewNote = () => {
     };
 
 
+    const handleEdit = () => {
+        fetch(`http://localhost:3000/posts/${location.state.id}`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                title: title,
+                note: note,
+                pinned: pinned,
+                backgroundColor: 'inherit'
+            })
+        })
+        .then(res => res.json())
+        .then(navigate('/'));
+    };
+
+    useEffect(() => {
+        if(location.state !== null) {
+            newNote.current = false;
+            setTitle(location.state.title);
+            setNote(location.state.note);
+            setPinned(location.state.pinned);
+        }
+    }, []);
+
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/posts/${location.state.id}`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                title: title,
+                note: note,
+                pinned: pinned,
+                backgroundColor: 'inherit'
+            })
+        })
+        .then(res => res.json())
+    }, [ pinned ])
+
     return (
         <div className="new-note" style={{
-            // backgroundColor: '#363636',
-            // color: '#fff',
             height: '100vh',
             
         }}>
@@ -56,15 +101,28 @@ const NewNote = () => {
 
             <div className="note-area">
                 <div className="textbox">
-                    <input onChange={handleChangeTitle} type="text" placeholder="Title" />
+                    <input 
+                        onChange={handleChangeTitle} 
+                        type="text" 
+                        placeholder="Title" 
+                        value={title}    
+                    />
                 </div>
                 <div className="textarea">
-                    <textarea onChange={handleChangeNote} name="note" id="note" placeholder='Note'></textarea>
+                    <textarea 
+                        onChange={handleChangeNote} 
+                        name="note" 
+                        id="note" 
+                        placeholder='Note'
+                        value={note}
+                    ></textarea>
                 </div>
             </div>
 
             <div className="action-bar">
-                <button onClick={handlePublish} className='submit-note'>Publish</button>
+                <button 
+                    onClick={ newNote === true ? handlePublish : handleEdit } 
+                    className='submit-note'>Publish</button>
             </div>
         </div>
     );

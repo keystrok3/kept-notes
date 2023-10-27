@@ -11,6 +11,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />}/>
       <Route path="/newnote" element={ <NewNote />} />
+      <Route path="/newnote/:id" element={ <NewNote />} />
     </Routes>
    </>
   )
