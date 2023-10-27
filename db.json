@@ -17,7 +17,7 @@
     {
       "title": "Abba",
       "note": "Winner takes all",
-      "pinned": true,
+      "pinned": false,
       "backgroundColor": "inherit",
       "id": 4
     }
