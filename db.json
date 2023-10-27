@@ -1,0 +1,25 @@
+{
+  "posts": [
+    {
+      "title": "Home",
+      "note": "Home is where the heart is.",
+      "pinned": false,
+      "backgroundColor": "inherit",
+      "id": 1
+    },
+    {
+      "title": "This Earth",
+      "note": "This earth, that stretches boundless! \nUpon which both weak and might feet have endlessly trod, and mercilessly struggled.",
+      "pinned": true,
+      "backgroundColor": "inherit",
+      "id": 2
+    },
+    {
+      "title": "Come",
+      "note": "Come unto me, all ye that labour, and are heavy laden, and I will give you rest.",
+      "pinned": true,
+      "backgroundColor": "inherit",
+      "id": 3
+    }
+  ]
+}
