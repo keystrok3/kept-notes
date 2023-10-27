@@ -1,25 +1,11 @@
 {
   "posts": [
     {
-      "title": "Home",
-      "note": "Home is where the heart is.",
-      "pinned": false,
-      "backgroundColor": "inherit",
-      "id": 1
-    },
-    {
-      "title": "This Earth",
-      "note": "This earth, that stretches boundless! \nUpon which both weak and might feet have endlessly trod, and mercilessly battled.",
+      "title": "Come ",
+      "note": "Come thou fount of every blessing, bid my heart to sing thy praise.",
       "pinned": true,
-      "backgroundColor": "inherit",
-      "id": 2
-    },
-    {
-      "title": "Abba",
-      "note": "Winner takes all",
-      "pinned": false,
-      "backgroundColor": "inherit",
-      "id": 4
+      "backgroundColor": "",
+      "id": 1
     }
   ]
 }

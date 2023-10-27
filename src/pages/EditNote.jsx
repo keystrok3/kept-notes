@@ -1,17 +1,20 @@
-import { Link, useNavigate } from 'react-router-dom';
+
+
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../assets/css/NewNote.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Colourpicker from '../components/Colourpicker';
 
-const NewNote = () => {
+const EditNote = () => {
 
     const [ title, setTitle ] = useState("");
     const [ note, setNote ] = useState("");
     const [ backgroundColor, setBackgroundcolor ] = useState("");
-
     const [ pinned, setPinned ] = useState(false);
 
     const navigate = useNavigate();
+
+    const location = useLocation();
 
     const handleChangeTitle = (e) => {
         setTitle(e.target.value)
@@ -30,10 +33,17 @@ const NewNote = () => {
         setBackgroundcolor(value);
     };
 
+    const handleDelete = () => {
+        fetch(`http://localhost:3000/posts/${location.state.id}`, {
+            method: 'DELETE'
+        })
+        .then(navigate('/'));
+    };
 
-    const handlePublish = () => {
-        fetch('http://localhost:3000/posts', {
-            method: 'POST',
+
+    const handleEdit = () => {
+        fetch(`http://localhost:3000/posts/${location.state.id}`, {
+            method: 'PUT',
             headers: {
                 "Content-Type": 'application/json'
             },
@@ -48,6 +58,13 @@ const NewNote = () => {
         .then(navigate('/'));
     };
 
+    useEffect(() => {
+        setBackgroundcolor(location.state.backgroundColor)
+        setNote(location.state.note);
+        setTitle(location.state.title);
+        setPinned(location.state.pinned);
+
+    }, [])
 
     return (
         <div className="new-note" style={{
@@ -82,9 +99,11 @@ const NewNote = () => {
 
             <div className="action-bar">
                 <button 
-                    onClick={ handlePublish } 
+                    onClick={ handleEdit } 
                     className='submit-note'
                 >Publish</button>
+
+                <button onClick={ handleDelete }>Delete</button>
 
                 <Colourpicker onColor={ handlePickColour }/>
             </div>
@@ -92,4 +111,4 @@ const NewNote = () => {
     );
 };
 
-export default NewNote;
+export default EditNote;

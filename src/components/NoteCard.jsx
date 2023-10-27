@@ -9,16 +9,20 @@ const NoteCard = ({ title, note, backgroundColor, id, pinned }) => {
 
 
     const handleClick = () => {
-        navigate(`/newnote/${id}`,{
-            state: {
-                note: note,
-                title: title,
-                backgroundColor: backgroundColor,
-                id: id,
-                pinned: pinned
-            }            
-        })
-    }
+        
+        navigate(
+            `/editnote/${id}`, 
+            {
+                state: {
+                    note: note,
+                    title: title,
+                    backgroundColor: backgroundColor,
+                    id: id,
+                    pinned: pinned
+                }            
+            }
+        );
+    };
  
     return (
         <div className="note-card" 
