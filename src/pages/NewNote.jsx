@@ -46,6 +46,7 @@ const NewNote = () => {
 
 
     const handleEdit = () => {
+        if(location.state === null) return;
         fetch(`http://localhost:3000/posts/${location.state.id}`, {
             method: 'PUT',
             headers: {
@@ -73,6 +74,11 @@ const NewNote = () => {
 
 
     useEffect(() => {
+        if(location.state === null) {
+            setPinned(!pinned);
+            return;
+        }
+
         fetch(`http://localhost:3000/posts/${location.state.id}`, {
             method: 'PUT',
             headers: {
