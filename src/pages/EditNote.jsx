@@ -29,6 +29,9 @@ const EditNote = () => {
     };
 
 
+    /** Handles click event in EditNote by changing background color 
+     * in specific NodeCard and EditNnote components
+    */
     const handlePickColour = (value) => {
         setBackgroundcolor(value);
     };
